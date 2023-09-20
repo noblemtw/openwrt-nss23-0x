@@ -79,7 +79,7 @@ BEGIN {
 		exit(1)
 	}
 
-	if (ipaddr > start && ipaddr < end) {
+	if (ipaddr >= start && ipaddr <= end) {
 		print "warning: ipaddr inside range - this might not be supported in future releases of Openwrt" > "/dev/stderr"
 	}
 
