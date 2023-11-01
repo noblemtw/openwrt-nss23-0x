@@ -25,6 +25,7 @@ HOST_CONFIGURE_ARGS += \
 	--disable-nls \
 	--disable-shared \
 	--without-lzma \
+	--without-bzlib \
 	--without-zstd
 
 HOST_MAKE_FLAGS += \
