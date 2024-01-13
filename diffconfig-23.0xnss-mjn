@@ -41,7 +41,7 @@ CONFIG_BUSYBOX_CONFIG_TELNET=y
 # CONFIG_BUSYBOX_CONFIG_VI is not set
 CONFIG_BUSYBOX_DEFAULT_PIE=y
 CONFIG_CCACHE=y
-CONFIG_CCACHE_DIR="/home/openwrt/source/openwrt-nss/ccache"
+CONFIG_CCACHE_DIR="/home/openwrt/source/openwrt-generic/arm/ccache"
 CONFIG_DOWNLOAD_FOLDER="/home/openwrt/source/openwrt-generic/dl"
 CONFIG_EXTRA_OPTIMIZATION="-fno-caller-saves -fno-plt -mword-relocations"
 CONFIG_GCC_DEFAULT_PIE=y
@@ -202,6 +202,7 @@ CONFIG_PACKAGE_collectd-mod-thermal=y
 CONFIG_PACKAGE_collectd-mod-uptime=y
 CONFIG_PACKAGE_collectd-mod-wireless=y
 CONFIG_PACKAGE_coreutils=y
+CONFIG_PACKAGE_coreutils-date=y
 CONFIG_PACKAGE_coreutils-sha256sum=m
 CONFIG_PACKAGE_coreutils-sha512sum=m
 CONFIG_PACKAGE_coreutils-stat=y
