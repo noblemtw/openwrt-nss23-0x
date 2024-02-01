@@ -136,9 +136,11 @@ endef
 define Build/append-ubi
 	sh $(TOPDIR)/scripts/ubinize-image.sh \
 		$(if $(UBOOTENV_IN_UBI),--uboot-env) \
-		$(if $(KERNEL_IN_UBI),--kernel $(IMAGE_KERNEL)) \
 		$(foreach part,$(UBINIZE_PARTS),--part $(part)) \
-		--rootfs $(IMAGE_ROOTFS) \
+		$(if $(findstring fit,$(1)), \
+		$(if $(KERNEL_IN_UBI),--part fit=$(IMAGE_KERNEL)), \
+		$(if $(KERNEL_IN_UBI),--kernel $(IMAGE_KERNEL)) \
+		--rootfs $(IMAGE_ROOTFS)) \
 		$@.tmp \
 		-p $(BLOCKSIZE:%k=%KiB) -m $(PAGESIZE) \
 		$(if $(SUBPAGESIZE),-s $(SUBPAGESIZE)) \
