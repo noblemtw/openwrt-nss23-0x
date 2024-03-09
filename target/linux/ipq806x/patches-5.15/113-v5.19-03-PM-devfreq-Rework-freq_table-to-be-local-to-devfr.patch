@@ -177,31 +177,37 @@ Signed-off-by: Christian 'Ansuel' Marangi <ansuelsmth@gmail.com>
  
  	if (max_state == 0)
  		return sprintf(buf, "Not Supported.\n");
-@@ -1680,19 +1679,17 @@ static ssize_t trans_stat_show(struct de
- 	len += sprintf(buf + len, "           :");
- 	for (i = 0; i < max_state; i++)
- 		len += sprintf(buf + len, "%10lu",
--				df->profile->freq_table[i]);
-+				df->freq_table[i]);
- 
- 	len += sprintf(buf + len, "   time(ms)\n");
- 
+@@ -1701,7 +1701,7 @@ static ssize_t trans_stat_show(struct de
+ 		if (len >= PAGE_SIZE - 1)
+ 			break;
+ 		len += scnprintf(buf + len, PAGE_SIZE - len, "%10lu",
+-				 df->profile->freq_table[i]);
++				 df->freq_table[i]);
+ 	}
+ 	if (len >= PAGE_SIZE - 1)
+ 		return PAGE_SIZE - 1;
+@@ -1711,17 +1711,15 @@ static ssize_t trans_stat_show(struct de
  	for (i = 0; i < max_state; i++) {
+ 		if (len >= PAGE_SIZE - 1)
+ 			break;
 -		if (df->profile->freq_table[i]
 -					== df->previous_freq) {
-+		if (df->freq_table[i] == df->previous_freq)
- 			len += sprintf(buf + len, "*");
++                if (df->freq_table[i] == df->previous_freq)
+ 			len += scnprintf(buf + len, PAGE_SIZE - len, "*");
 -		} else {
 +		else
- 			len += sprintf(buf + len, " ");
+ 			len += scnprintf(buf + len, PAGE_SIZE - len, " ");
 -		}
--		len += sprintf(buf + len, "%10lu:",
--				df->profile->freq_table[i]);
 +
+ 		if (len >= PAGE_SIZE - 1)
+ 			break;
+
+-		len += scnprintf(buf + len, PAGE_SIZE - len, "%10lu:",
+-				 df->profile->freq_table[i]);
 +		len += sprintf(buf + len, "%10lu:", df->freq_table[i]);
- 		for (j = 0; j < max_state; j++)
- 			len += sprintf(buf + len, "%10u",
- 				df->stats.trans_table[(i * max_state) + j]);
+ 		for (j = 0; j < max_state; j++) {
+ 			if (len >= PAGE_SIZE - 1)
+ 				break;
 @@ -1716,7 +1713,7 @@ static ssize_t trans_stat_store(struct d
  	if (!df->profile)
  		return -EINVAL;
